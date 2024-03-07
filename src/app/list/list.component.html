@@ -1,0 +1,5 @@
+<ul>
+  <li *ngFor="let pokemon of pokemonList; index as i; first as isFirst">
+    <a routerLink="/details/{{pokemon.name}}">{{ pokemon.name }}</a>
+  </li>
+</ul>
