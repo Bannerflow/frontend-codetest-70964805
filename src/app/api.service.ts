@@ -18,4 +18,13 @@ export class ApiService {
     const options = { params, headers };
     return this.http.get<T>(`${this.baseUrl}/${url}`, options);
   }
+
+  getWithFullUrl<T>(
+    url: string,
+    params?: HttpParams,
+    headers?: HttpHeaders
+  ): Observable<T> {
+    const options = { params, headers };
+    return this.http.get<T>(url, options);
+  }
 }
