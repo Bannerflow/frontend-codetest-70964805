@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { PokemonListItem } from '../pokemon.list.item';
+import { PokemonListItem } from '../types/pokemon.list.item';
 import { CommonModule } from '@angular/common';
-import { List } from '../list';
+import { List } from '../types/list';
 import { RouterModule } from '@angular/router';
 
 @Component({
