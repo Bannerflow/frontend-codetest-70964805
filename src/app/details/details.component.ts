@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Pokemon } from '../types/pokemon';
 import { CommonModule } from '@angular/common';
+import { EvolutionChain, EvolutionList } from '../types/evolution.chain';
 
 @Component({
   selector: 'app-details',
@@ -15,8 +16,8 @@ export class DetailsComponent implements OnInit {
   pokemon: Pokemon;
   nameParam: string = '';
   evolutionChainUrl: string;
-  evolutionChain: any;
-  evolutionList: any;
+  evolutionChain: {};
+  evolutionList: EvolutionList[];
 
   constructor(
     private apiService: ApiService,
@@ -56,7 +57,7 @@ export class DetailsComponent implements OnInit {
       );
   }
 
-  getEvolutions(evolutionChainData: any) {
+  getEvolutions(evolutionChainData: EvolutionChain) {
     let evoChain = [];
     do {
       let numberOfEvolutions = evolutionChainData?.['evolves_to'].length;
