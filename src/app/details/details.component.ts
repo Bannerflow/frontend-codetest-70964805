@@ -24,12 +24,12 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.nameParam = this.activatedRoute.snapshot.paramMap.get('name') || '';
+    this.getPokemonDetails(this.nameParam);
+    this.getPokemonEvolutions(this.nameParam);
+
     this.activatedRoute.params.subscribe((params) => {
-      // this.nameParam = this.activatedRoute.snapshot.paramMap.get('name') || '';
       this.getPokemonDetails(params['name']);
-      this.getPokemonEvolutions(params['name']);
-      this.evolutionList = this.getEvolutions(this.evolutionChain);
-      console.log('fetched evo list', this.evolutionList);
     });
   }
 
@@ -50,7 +50,10 @@ export class DetailsComponent implements OnInit {
   getPokemonEvolutionChain(url: string): void {
     this.apiService
       .getPokemonEvolutionChain(url)
-      .subscribe((evolutions) => (this.evolutionChain = evolutions.chain));
+      .subscribe(
+        (evolutions) =>
+          (this.evolutionList = this.getEvolutions(evolutions.chain))
+      );
   }
 
   getEvolutions(evolutionChainData: any) {
