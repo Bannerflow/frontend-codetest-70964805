@@ -49,7 +49,7 @@ export class DetailsComponent implements OnInit {
 
   getPokemonEvolutionChain(url: string): void {
     this.apiService
-      .getPokemonEvolutionChain(url)
+      .getData(url)
       .subscribe(
         (evolutions) =>
           (this.evolutionList = this.getEvolutions(evolutions.chain))

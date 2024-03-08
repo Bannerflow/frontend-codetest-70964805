@@ -1,5 +1,9 @@
 <ul>
-  <li *ngFor="let pokemon of pokemonList; index as i; first as isFirst">
+  <li *ngFor="let pokemon of pokemonList?.results; index as i; first as isFirst">
     <a routerLink="/details/{{pokemon.name}}">{{ pokemon.name }}</a>
   </li>
 </ul>
+<p>
+    <button *ngIf="pokemonList?.previous" (click)="getPage(pokemonList.previous)">Previous</button>
+    <button *ngIf="pokemonList?.next" (click)="getPage(pokemonList.next)">Next</button>
+</p>

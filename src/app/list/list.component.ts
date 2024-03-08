@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { PokemonListItem } from '../types/pokemon.list.item';
 import { CommonModule } from '@angular/common';
 import { List } from '../types/list';
 import { RouterModule } from '@angular/router';
@@ -13,7 +12,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './list.component.scss',
 })
 export class ListComponent implements OnInit {
-  pokemonList: PokemonListItem[] = [];
+  pokemonList: List;
 
   constructor(private apiService: ApiService) {}
 
@@ -22,7 +21,12 @@ export class ListComponent implements OnInit {
   }
 
   getPokemonList(): void {
-    this.apiService.getPokemonList()
-      .subscribe(pokemon => this.pokemonList = pokemon.results);
+    this.apiService.getFirstPage()
+      .subscribe(pokemon => this.pokemonList = pokemon);
+  }
+
+  getPage(url: string): void {
+    this.apiService.getData(url)
+    .subscribe(pokemon => this.pokemonList = pokemon);
   }
 }

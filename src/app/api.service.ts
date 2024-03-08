@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Pokemon } from './types/pokemon';
 import { List } from './types/list';
 
@@ -14,9 +14,9 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getPokemonList(): Observable<List> {
+  getFirstPage(): Observable<List> {
     return this.http
-      .get<List>(`${this.baseUrl}/pokemon`)
+      .get<List>(`${this.baseUrl}/pokemon?limit=10`)
       .pipe(tap((_) => console.log('fetched pokemon list', _)));
   }
 
@@ -32,9 +32,9 @@ export class ApiService {
       .pipe(tap((_) => console.log('fetched pokemon evolutions url', _)));
   }
 
-  getPokemonEvolutionChain(url: string): Observable<any> {
+  getData(url: string): Observable<any> {
     return this.http
       .get(url)
-      .pipe(tap((_) => console.log('fetched pokemon evolution chain', _)));
+      .pipe(tap((_) => console.log('fetched data', _)));
   }
 }
