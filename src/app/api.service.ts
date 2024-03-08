@@ -1,30 +1,40 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Pokemon } from './types/pokemon';
+import { List } from './types/list';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ApiService {
   private baseUrl = 'https://pokeapi.co/api/v2';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
   constructor(private http: HttpClient) {}
 
-  get<T>(
-    url: string,
-    params?: HttpParams,
-    headers?: HttpHeaders
-  ): Observable<T> {
-    const options = { params, headers };
-    return this.http.get<T>(`${this.baseUrl}/${url}`, options);
+  getPokemonList(): Observable<List> {
+    return this.http
+      .get<List>(`${this.baseUrl}/pokemon`)
+      .pipe(tap((_) => console.log('fetched pokemon list', _)));
   }
 
-  getWithFullUrl<T>(
-    url: string,
-    params?: HttpParams,
-    headers?: HttpHeaders
-  ): Observable<T> {
-    const options = { params, headers };
-    return this.http.get<T>(url, options);
+  getPokemonDetails(name: string): Observable<Pokemon> {
+    return this.http
+      .get<Pokemon>(`${this.baseUrl}/pokemon/${name}`)
+      .pipe(tap((_) => console.log('fetched pokemon details', _)));
+  }
+
+  getPokemonEvolutionUrl(name: string): Observable<any> {
+    return this.http
+      .get(`${this.baseUrl}/pokemon-species/${name}`)
+      .pipe(tap((_) => console.log('fetched pokemon evolutions url', _)));
+  }
+
+  getPokemonEvolutionChain(url: string): Observable<any> {
+    return this.http
+      .get(url)
+      .pipe(tap((_) => console.log('fetched pokemon evolution chain', _)));
   }
 }

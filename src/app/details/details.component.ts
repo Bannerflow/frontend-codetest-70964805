@@ -23,26 +23,25 @@ export class DetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit() {    
+  ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       // this.nameParam = this.activatedRoute.snapshot.paramMap.get('name') || '';
       this.getPokemonDetails(params['name']);
       this.getPokemonEvolutions(params['name']);
       this.evolutionList = this.getEvolutions(this.evolutionChain);
-      console.log('ayoooo', this.evolutionList);
-
+      console.log('fetched evo list', this.evolutionList);
     });
   }
 
-  getPokemonDetails(param: string): void {
+  getPokemonDetails(name: string): void {
     this.apiService
-      .get<Pokemon>(`pokemon/${param}`)
+      .getPokemonDetails(name)
       .subscribe((pokemon) => (this.pokemon = pokemon));
   }
 
-  getPokemonEvolutions(param: string): void {
+  getPokemonEvolutions(name: string): void {
     this.apiService
-      .get<any>(`pokemon-species/${param}/`)
+      .getPokemonEvolutionUrl(name)
       .subscribe((species) =>
         this.getPokemonEvolutionChain(species.evolution_chain.url)
       );
@@ -50,7 +49,7 @@ export class DetailsComponent implements OnInit {
 
   getPokemonEvolutionChain(url: string): void {
     this.apiService
-      .getWithFullUrl<any>(url)
+      .getPokemonEvolutionChain(url)
       .subscribe((evolutions) => (this.evolutionChain = evolutions.chain));
   }
 
@@ -74,7 +73,10 @@ export class DetailsComponent implements OnInit {
       }
 
       evolutionChainData = evolutionChainData?.['evolves_to'][0];
-    } while (!!evolutionChainData && evolutionChainData.hasOwnProperty('evolves_to'));
+    } while (
+      !!evolutionChainData &&
+      evolutionChainData.hasOwnProperty('evolves_to')
+    );
     return evoChain;
   }
 }
