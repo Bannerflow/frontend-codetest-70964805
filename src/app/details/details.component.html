@@ -8,12 +8,12 @@
     {{ ability.ability.name }}
   </li>
 </ul>
-<p>Evolutions:</p>
-<ul>
-  <li *ngFor="let evolution of evolutionList; index as i; first as isFirst">
-    <img src="{{ evolution.image }}" />
-    <a routerLink="/details/{{ evolution.name }}">{{
-      evolution.name
-    }}</a>
-  </li>
-</ul>
+<div *ngIf="evolutionList.length">
+  <p>Evolutions:</p>
+  <ul>
+    <li *ngFor="let evolution of evolutionList; index as i; first as isFirst">
+      <img src="{{ evolution.image }}" />
+      <a routerLink="/details/{{ evolution.name }}">{{ evolution.name }}</a>
+    </li>
+  </ul>
+</div>
