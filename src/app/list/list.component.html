@@ -1,9 +1,22 @@
 <ul>
-  <li *ngFor="let pokemon of pokemonList?.results; index as i; first as isFirst">
-    <a routerLink="/details/{{pokemon.name}}">{{ pokemon.name }}</a>
+  <li *ngFor="let pokemon of pokeList; index as i; first as isFirst">
+    <img src="{{ pokemon.image }}" />
+    <a routerLink="/details/{{ pokemon.name }}">{{ pokemon.name }}</a>
   </li>
 </ul>
 <p>
-    <button *ngIf="pokemonList?.previous" (click)="getPage(pokemonList.previous)">Previous</button>
-    <button *ngIf="pokemonList?.next" (click)="getPage(pokemonList.next)">Next</button>
+  <button
+    type="button"
+    *ngIf="pokemonListData?.previous"
+    (click)="getPage(pokemonListData.previous)"
+  >
+    Previous
+  </button>
+  <button
+    type="button"
+    *ngIf="pokemonListData?.next"
+    (click)="getPage(pokemonListData.next)"
+  >
+    Next
+  </button>
 </p>

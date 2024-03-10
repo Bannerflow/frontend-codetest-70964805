@@ -82,7 +82,7 @@ export class DetailsComponent implements OnInit {
           evoChain.push({
             name: evolutionChainData.evolves_to[i].species.name,
             url: evolutionChainData.evolves_to[i].species.url,
-            image: this.getPokemonImage(evolutionChainData.evolves_to[i].species.name),
+            image: this.getPokemonImage(evolutionChainData?.evolves_to[i]?.species.name),
           });
         }
       }

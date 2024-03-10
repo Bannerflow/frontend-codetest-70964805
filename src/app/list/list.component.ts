@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { CommonModule } from '@angular/common';
 import { List } from '../types/list';
 import { RouterModule } from '@angular/router';
+import { PokemonListItem } from '../types/pokemon.list.item';
 
 @Component({
   selector: 'app-list',
@@ -12,7 +13,9 @@ import { RouterModule } from '@angular/router';
   styleUrl: './list.component.scss',
 })
 export class ListComponent implements OnInit {
-  pokemonList: List;
+  pokemonListData: List;
+  pokeList: PokemonListItem[] = [];
+  imageTemp: string;
 
   constructor(private apiService: ApiService) {}
 
@@ -21,12 +24,40 @@ export class ListComponent implements OnInit {
   }
 
   getPokemonList(): void {
-    this.apiService.getFirstPage()
-      .subscribe(pokemon => this.pokemonList = pokemon);
+    this.apiService.getFirstPage().subscribe((pokemon) => {
+      this.pokemonListData = pokemon;
+      this.getPokemonListFromData(pokemon.results);
+    });
+  }
+
+  getImage(url: string) {
+    let image: string = '';
+    this.apiService
+      .getData(url)
+      .subscribe((pokemon) => (image = pokemon?.sprites?.front_default));
+    return image;
+  }
+
+  getPokemonListFromData(pokemon: PokemonListItem[]): void {
+    this.pokeList = [];
+
+    pokemon.forEach((el) => {
+      this.apiService.getData(el.url).subscribe((pokemon) => {
+        this.imageTemp = pokemon?.sprites?.front_default;
+        let element = {
+          name: el.name,
+          url: el.url,
+          image: this.imageTemp,
+        };
+        this.pokeList.push(element);
+      });
+    });
   }
 
   getPage(url: string): void {
-    this.apiService.getData(url)
-    .subscribe(pokemon => this.pokemonList = pokemon);
+    this.apiService.getData(url).subscribe((pokemon) => {
+      this.pokemonListData = pokemon;
+      this.getPokemonListFromData(pokemon.results);
+    });
   }
 }
