@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { List } from '../types/list';
 import { RouterModule } from '@angular/router';
 import { PokemonListItem } from '../types/pokemon.list.item';
+import { Observable, map } from 'rxjs';
+import { Pokemon } from '../types/pokemon';
 
 @Component({
   selector: 'app-list',
@@ -29,17 +31,16 @@ export class ListComponent implements OnInit {
       this.getPokemonListFromData(pokemon.results);
     });
   }
-
+  
   getPokemonListFromData(pokemon: PokemonListItem[]): void {
     this.pokeList = [];
 
     pokemon.forEach((el) => {
-      this.apiService.getData(el.url).subscribe((pokemon) => {
-        this.imageTemp = pokemon?.sprites?.front_default;
+      this.apiService.getPokemonDetails(el.name).subscribe((pokemon) => {
         let element = {
-          name: el.name,
-          url: el.url,
-          image: this.imageTemp,
+          name: pokemon?.species.name,
+          url: pokemon?.species.url,
+          image: pokemon?.sprites?.front_default,
         };
         this.pokeList.push(element);
       });

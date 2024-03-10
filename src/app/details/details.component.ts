@@ -58,14 +58,6 @@ export class DetailsComponent implements OnInit {
       );
   }
 
-  getPokeImage(name: string): Observable<string | undefined | null> {
-    return this.apiService.getPokemonDetails(name).pipe(
-      map((pokemon: Pokemon) => {
-        return pokemon.sprites.front_default;
-      })
-    );
-  }
-
   getEvolutions(evolutionChainData: EvolutionChain) {
     let evoChain: EvolutionList[] = [];
     do {
