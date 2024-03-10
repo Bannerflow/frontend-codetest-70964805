@@ -4,12 +4,12 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Pokemon } from '../types/pokemon';
 import { CommonModule } from '@angular/common';
 import { EvolutionChain, EvolutionList } from '../types/evolution.chain';
-import { Observable, map } from 'rxjs';
+import { RemoveHyphensAndCapitalize } from '../remove.hyphens.pipe';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, RemoveHyphensAndCapitalize],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
 })
@@ -54,11 +54,11 @@ export class DetailsComponent implements OnInit {
       .getData(url)
       .subscribe(
         (evolutions) =>
-          (this.evolutionList = this.getEvolutions(evolutions.chain))
+          (this.evolutionList = this.parseEvolutions(evolutions.chain))
       );
   }
 
-  getEvolutions(evolutionChainData: EvolutionChain) {
+  parseEvolutions(evolutionChainData: EvolutionChain) {
     let evoChain: EvolutionList[] = [];
     do {
       let numberOfEvolutions = evolutionChainData?.['evolves_to'].length;

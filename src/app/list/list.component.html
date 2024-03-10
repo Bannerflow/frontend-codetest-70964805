@@ -1,7 +1,7 @@
 <ul>
   <li *ngFor="let pokemon of pokeList; index as i; first as isFirst">
     <img src="{{ pokemon.image }}" />
-    <a routerLink="/details/{{ pokemon.name }}">{{ pokemon.name }}</a>
+    <a routerLink="/details/{{ pokemon.name }}">{{ pokemon.name | titlecase }}</a>
   </li>
 </ul>
 <p>

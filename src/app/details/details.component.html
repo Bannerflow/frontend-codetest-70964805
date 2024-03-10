@@ -1,19 +1,19 @@
 <p><a routerLink="/pokemon-list">Back to pokedex</a></p>
 <p>Pokemon details</p>
 <p><img src="{{ pokemon?.sprites?.front_default }}" /></p>
-<p>Name: {{ pokemon?.name }}</p>
+<h2>{{ pokemon?.name | titlecase }}</h2>
 <p>Abilities:</p>
 <ul>
   <li *ngFor="let ability of pokemon?.abilities; index as i; first as isFirst">
-    {{ ability.ability.name }}
+    {{ ability.ability.name | removeHyphensAndCapitalize | titlecase }}
   </li>
 </ul>
-<div *ngIf="evolutionList.length">
+<div *ngIf="evolutionList?.length">
   <p>Evolutions:</p>
   <ul>
     <li *ngFor="let evolution of evolutionList; index as i; first as isFirst">
       <img src="{{ evolution.image }}" />
-      <a routerLink="/details/{{ evolution.name }}">{{ evolution.name }}</a>
+      <a routerLink="/details/{{ evolution.name }}">{{ evolution.name | titlecase }}</a>
     </li>
   </ul>
 </div>
