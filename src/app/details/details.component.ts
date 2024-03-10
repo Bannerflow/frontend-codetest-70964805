@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Pokemon } from '../types/pokemon';
 import { CommonModule } from '@angular/common';
 import { EvolutionChain, EvolutionList } from '../types/evolution.chain';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -57,33 +58,42 @@ export class DetailsComponent implements OnInit {
       );
   }
 
-  getPokemonImage(name: string) {
-    let image: string | undefined | null = '';
-    this.apiService
-    .getPokemonDetails(name)
-    .subscribe((pokemon) => image = pokemon.sprites.front_default);
-
-    return image;
+  getPokeImage(name: string): Observable<string | undefined | null> {
+    return this.apiService.getPokemonDetails(name).pipe(
+      map((pokemon: Pokemon) => {
+        return pokemon.sprites.front_default;
+      })
+    );
   }
 
   getEvolutions(evolutionChainData: EvolutionChain) {
-    let evoChain = [];
+    let evoChain: EvolutionList[] = [];
     do {
       let numberOfEvolutions = evolutionChainData?.['evolves_to'].length;
 
-      evoChain.push({
-        name: evolutionChainData?.species.name,
-        url: evolutionChainData?.species.url,
-        image: this.getPokemonImage(evolutionChainData?.species.name),
-      });
+      this.apiService
+        .getPokemonDetails(evolutionChainData?.species.name)
+        .subscribe((pokemon) => {
+          let element = {
+            name: pokemon?.species.name,
+            url: pokemon?.species.url,
+            image: pokemon?.sprites?.front_default,
+          };
+          evoChain.push(element);
+        });
 
       if (numberOfEvolutions > 1) {
         for (let i = 1; i < numberOfEvolutions; i++) {
-          evoChain.push({
-            name: evolutionChainData.evolves_to[i].species.name,
-            url: evolutionChainData.evolves_to[i].species.url,
-            image: this.getPokemonImage(evolutionChainData?.evolves_to[i]?.species.name),
-          });
+          this.apiService
+            .getPokemonDetails(evolutionChainData.evolves_to[i].species.name)
+            .subscribe((pokemon) => {
+              let element = {
+                name: pokemon?.species.name,
+                url: pokemon?.species.url,
+                image: pokemon?.sprites?.front_default,
+              };
+              evoChain.push(element);
+            });
         }
       }
 

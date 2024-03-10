@@ -30,14 +30,6 @@ export class ListComponent implements OnInit {
     });
   }
 
-  getImage(url: string) {
-    let image: string = '';
-    this.apiService
-      .getData(url)
-      .subscribe((pokemon) => (image = pokemon?.sprites?.front_default));
-    return image;
-  }
-
   getPokemonListFromData(pokemon: PokemonListItem[]): void {
     this.pokeList = [];
 

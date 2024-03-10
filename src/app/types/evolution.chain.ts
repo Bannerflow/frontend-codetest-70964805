@@ -10,5 +10,5 @@ export interface EvolutionChain {
 export interface EvolutionList {
   name: string;
   url: string;
-  image: string;
+  image: string | undefined | null;
 }
