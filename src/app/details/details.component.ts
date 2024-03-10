@@ -57,6 +57,15 @@ export class DetailsComponent implements OnInit {
       );
   }
 
+  getPokemonImage(name: string) {
+    let image: string | undefined | null = '';
+    this.apiService
+    .getPokemonDetails(name)
+    .subscribe((pokemon) => image = pokemon.sprites.front_default);
+
+    return image;
+  }
+
   getEvolutions(evolutionChainData: EvolutionChain) {
     let evoChain = [];
     do {
@@ -65,6 +74,7 @@ export class DetailsComponent implements OnInit {
       evoChain.push({
         name: evolutionChainData?.species.name,
         url: evolutionChainData?.species.url,
+        image: this.getPokemonImage(evolutionChainData?.species.name),
       });
 
       if (numberOfEvolutions > 1) {
@@ -72,6 +82,7 @@ export class DetailsComponent implements OnInit {
           evoChain.push({
             name: evolutionChainData.evolves_to[i].species.name,
             url: evolutionChainData.evolves_to[i].species.url,
+            image: this.getPokemonImage(evolutionChainData.evolves_to[i].species.name),
           });
         }
       }
