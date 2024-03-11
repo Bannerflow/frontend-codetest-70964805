@@ -14,22 +14,20 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './list.component.scss',
 })
 export class ListComponent implements OnInit {
-  pokemonListData: List;
   pokeList: PokemonListItem[] = [];
+  previousPage: string;
+  nextPage: string;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.getPokemonList();
-  }
-
-  getPokemonList(): void {
     this.apiService.getFirstPage().subscribe((pokemon) => {
-      this.pokemonListData = pokemon;
       this.getPokemonListFromData(pokemon.results);
+      this.previousPage = pokemon.previous;
+      this.nextPage = pokemon.next;
     });
   }
-  
+
   getPokemonListFromData(pokemon: PokemonListItem[]): void {
     this.pokeList = [];
 
@@ -47,8 +45,9 @@ export class ListComponent implements OnInit {
 
   getPage(url: string): void {
     this.apiService.getData(url).subscribe((pokemon) => {
-      this.pokemonListData = pokemon;
       this.getPokemonListFromData(pokemon.results);
+      this.previousPage = pokemon.previous;
+      this.nextPage = pokemon.next;
     });
   }
 }
