@@ -1,22 +1,16 @@
 <ul>
   <li *ngFor="let pokemon of pokeList; index as i; first as isFirst">
     <img src="{{ pokemon.image }}" />
-    <a routerLink="/details/{{ pokemon.name }}">{{ pokemon.name | titlecase }}</a>
+    <a routerLink="/details/{{ pokemon.name }}">{{
+      pokemon.name | titlecase
+    }}</a>
   </li>
 </ul>
 <p>
-  <button
-    type="button"
-    *ngIf="pokemonListData?.previous"
-    (click)="getPage(pokemonListData.previous)"
-  >
+  <button type="button" *ngIf="previousPage" (click)="getPage(previousPage)">
     Previous
   </button>
-  <button
-    type="button"
-    *ngIf="pokemonListData?.next"
-    (click)="getPage(pokemonListData.next)"
-  >
+  <button type="button" *ngIf="nextPage" (click)="getPage(nextPage)">
     Next
   </button>
 </p>
