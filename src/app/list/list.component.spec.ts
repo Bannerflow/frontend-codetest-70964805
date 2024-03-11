@@ -8,7 +8,7 @@ describe('ListComponent', () => {
   let component: ListComponent;
   let fixture: ComponentFixture<ListComponent>;
   let apiService: ApiService;
-  let getListSpy: any;
+  let getListSpy: List;
 
   const mockList: List = {
     count: 1302,
