@@ -15,13 +15,19 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class ListComponent implements OnInit {
   pokeList: PokemonListItem[] = [];
-  previousPage: string;
-  nextPage: string;
+  previousPage: string | undefined | null;
+  nextPage: string | undefined | null;
+  pokemon: List;
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
+    this.getFirstPage();
+  }
+
+  getFirstPage(): void {
     this.apiService.getFirstPage().subscribe((pokemon) => {
+      this.pokemon = pokemon;
       this.getPokemonListFromData(pokemon.results);
       this.previousPage = pokemon.previous;
       this.nextPage = pokemon.next;
