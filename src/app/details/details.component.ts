@@ -16,8 +16,6 @@ import { RemoveHyphensAndCapitalize } from '../remove.hyphens.pipe';
 export class DetailsComponent implements OnInit {
   pokemon: Pokemon;
   nameParam: string = '';
-  evolutionChainUrl: string;
-  evolutionChain: {};
   evolutionList: EvolutionList[];
 
   constructor(

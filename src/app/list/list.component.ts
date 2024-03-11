@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { List } from '../types/list';
 import { RouterModule } from '@angular/router';
 import { PokemonListItem } from '../types/pokemon.list.item';
-import { Observable, map } from 'rxjs';
-import { Pokemon } from '../types/pokemon';
 
 @Component({
   selector: 'app-list',
@@ -17,7 +15,6 @@ import { Pokemon } from '../types/pokemon';
 export class ListComponent implements OnInit {
   pokemonListData: List;
   pokeList: PokemonListItem[] = [];
-  imageTemp: string;
 
   constructor(private apiService: ApiService) {}
 
