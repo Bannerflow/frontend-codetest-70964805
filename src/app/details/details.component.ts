@@ -5,11 +5,12 @@ import { Pokemon } from '../types/pokemon';
 import { CommonModule } from '@angular/common';
 import { EvolutionChain, EvolutionList } from '../types/evolution.chain';
 import { RemoveHyphensAndCapitalize } from '../remove.hyphens.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, RemoveHyphensAndCapitalize],
+  imports: [CommonModule, RouterModule, RemoveHyphensAndCapitalize, HttpClientModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
 })

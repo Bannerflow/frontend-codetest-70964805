@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { List } from '../types/list';
 import { RouterModule } from '@angular/router';
 import { PokemonListItem } from '../types/pokemon.list.item';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, HttpClientModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
