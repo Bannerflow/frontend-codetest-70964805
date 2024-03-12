@@ -19,7 +19,8 @@ export class ListComponent implements OnInit {
   previousPage: string | undefined | null;
   nextPage: string | undefined | null;
   pokemon: List;
-  loading: boolean = false;
+  dataLoading: boolean = false;
+  listLoading: boolean = false;
 
   constructor(private apiService: ApiService) {}
 
@@ -38,8 +39,10 @@ export class ListComponent implements OnInit {
 
   getPokemonListFromData(pokemon: PokemonListItem[]): void {
     this.pokeList = [];
+    this.listLoading = true;
+    let itemCount = 0;
 
-    pokemon.forEach((el) => {
+    pokemon.forEach((el, i, array) => {
       this.apiService.getPokemonDetails(el.name).subscribe((pokemon) => {
         let element = {
           name: pokemon?.species.name,
@@ -47,17 +50,22 @@ export class ListComponent implements OnInit {
           image: pokemon?.sprites?.front_default,
         };
         this.pokeList.push(element);
+
+        itemCount++;
+        if (itemCount === array.length) {
+          this.listLoading = false;
+        }
       });
     });
   }
 
   getPage(url: string): void {
-    this.loading = true;
+    this.dataLoading = true;
     this.apiService.getData(url).subscribe((pokemon) => {
       this.getPokemonListFromData(pokemon.results);
       this.previousPage = pokemon.previous;
       this.nextPage = pokemon.next;
-      this.loading = false;
+      this.dataLoading = false;
     });
   }
 }

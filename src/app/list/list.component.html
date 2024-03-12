@@ -1,18 +1,20 @@
-<ul>
-  <li *ngFor="let pokemon of pokeList; index as i; first as isFirst">
-    <a routerLink="/details/{{ pokemon.name }}" class="pokemon__boxLink">
-      <img src="{{ pokemon.image }}" class="pokemon__image" />
-      <button mat-button color="primary">
-        {{ pokemon.name | titlecase }}
-      </button>
-    </a>
-  </li>
-</ul>
+<div class="pokemon__listWrapper">
+  <ul *ngIf="!listLoading && !dataLoading">
+    <li *ngFor="let pokemon of pokeList; index as i; first as isFirst">
+      <a routerLink="/details/{{ pokemon.name }}" class="pokemon__boxLink">
+        <img src="{{ pokemon.image }}" class="pokemon__image" />
+        <button mat-button color="primary">
+          {{ pokemon.name | titlecase }}
+        </button>
+      </a>
+    </li>
+  </ul>
+</div>
 <p class="buttons__flex">
   <button
     mat-flat-button
     color="primary"
-    [disabled]="loading"
+    [disabled]="dataLoading || listLoading"
     type="button"
     *ngIf="previousPage"
     (click)="getPage(previousPage)"
@@ -22,7 +24,7 @@
   <button
     mat-flat-button
     color="primary"
-    [disabled]="loading"
+    [disabled]="dataLoading || listLoading"
     type="button"
     *ngIf="nextPage"
     (click)="getPage(nextPage)"

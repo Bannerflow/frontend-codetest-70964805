@@ -5,6 +5,14 @@ ul {
   align-items: center;
   justify-content: space-between;
   padding-left: 0;
+  margin: 0;
+}
+
+.pokemon__listWrapper {
+  display: block;
+  width: 100%;
+  height: 148px;
+  margin-bottom: 16px;
 }
 
 .buttons__flex {
