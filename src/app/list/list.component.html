@@ -1,6 +1,6 @@
 <div class="pokemon__listWrapper">
   <ul *ngIf="!listLoading && !dataLoading">
-    <li *ngFor="let pokemon of pokeList; index as i; first as isFirst">
+    <li *ngFor="let pokemon of pokeList | orderByName">
       <a routerLink="/details/{{ pokemon.name }}" class="pokemon__boxLink">
         <img src="{{ pokemon.image }}" class="pokemon__image" [ngClass]="{'hidden': !pokemon.image}" />
         <button mat-button color="primary">
