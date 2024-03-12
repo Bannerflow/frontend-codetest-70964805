@@ -5,11 +5,12 @@ import { List } from '../types/list';
 import { RouterModule } from '@angular/router';
 import { PokemonListItem } from '../types/pokemon.list.item';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule],
+  imports: [CommonModule, RouterModule, HttpClientModule, MatButtonModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })

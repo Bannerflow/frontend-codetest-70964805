@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { EvolutionChain, EvolutionList } from '../types/evolution.chain';
 import { RemoveHyphensAndCapitalize } from '../remove.hyphens.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, RemoveHyphensAndCapitalize, HttpClientModule],
+  imports: [CommonModule, RouterModule, RemoveHyphensAndCapitalize, HttpClientModule, MatButtonModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
 })
