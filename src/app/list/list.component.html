@@ -1,16 +1,33 @@
 <ul>
-  <li *ngFor="let pokemon of pokeList; index as i; first as isFirst" class="pokemon__box">
-    <img src="{{ pokemon.image }}" />
-    <a mat-button color="primary" routerLink="/details/{{ pokemon.name }}">{{
-      pokemon.name | titlecase
-    }}</a>
+  <li *ngFor="let pokemon of pokeList; index as i; first as isFirst">
+    <a routerLink="/details/{{ pokemon.name }}" class="pokemon__boxLink">
+      <img src="{{ pokemon.image }}" class="pokemon__image" />
+      <button mat-button color="primary">
+        {{ pokemon.name | titlecase }}
+      </button>
+    </a>
   </li>
 </ul>
 <p class="buttons__flex">
-  <button mat-flat-button color="primary" [disabled]="loading" type="button" *ngIf="previousPage" (click)="getPage(previousPage)">
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="loading"
+    type="button"
+    *ngIf="previousPage"
+    (click)="getPage(previousPage)"
+  >
     Previous
   </button>
-  <button mat-flat-button color="primary" [disabled]="loading" type="button" *ngIf="nextPage" (click)="getPage(nextPage)" class="button__next">
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="loading"
+    type="button"
+    *ngIf="nextPage"
+    (click)="getPage(nextPage)"
+    class="button__next"
+  >
     Next
   </button>
 </p>

@@ -13,7 +13,7 @@
 </div>
 <div class="details__flexbox">
   <div class="details__row">
-    <h3>Abilities:</h3>
+    <h3>Abilities</h3>
     <ul>
       <li
         *ngFor="let ability of pokemon?.abilities; index as i; first as isFirst"
@@ -23,13 +23,17 @@
     </ul>
   </div>
   <div class="details__row" *ngIf="evolutionList?.length">
-    <h3>Evolutions:</h3>
+    <h3>Evolutions</h3>
     <ul class="evolutions__list">
-      <li *ngFor="let evolution of evolutionList; index as i; first as isFirst" class="evolution__box">
-        <img src="{{ evolution.image }}" />
-        <a mat-button color="primary" routerLink="/details/{{ evolution.name }}">{{
-          evolution.name | titlecase
-        }}</a>
+      <li *ngFor="let evolution of evolutionList; index as i; first as isFirst">
+        <a
+          routerLink="/details/{{ evolution.name }}"
+          class="evolution__boxLink"
+          routerLinkActive="active-evolution"
+        >
+          <img src="{{ evolution.image }}" class="evolution__image" />
+          <div>{{ evolution.name | titlecase }}</div>
+        </a>
       </li>
     </ul>
   </div>
