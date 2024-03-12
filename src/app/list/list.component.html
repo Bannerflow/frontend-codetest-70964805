@@ -2,13 +2,14 @@
   <ul *ngIf="!listLoading && !dataLoading">
     <li *ngFor="let pokemon of pokeList; index as i; first as isFirst">
       <a routerLink="/details/{{ pokemon.name }}" class="pokemon__boxLink">
-        <img src="{{ pokemon.image }}" class="pokemon__image" />
+        <img src="{{ pokemon.image }}" class="pokemon__image" [ngClass]="{'hidden': !pokemon.image}" />
         <button mat-button color="primary">
           {{ pokemon.name | titlecase }}
         </button>
       </a>
     </li>
   </ul>
+  <mat-spinner class="spinner" diameter="50" *ngIf="listLoading"></mat-spinner>
 </div>
 <p class="buttons__flex">
   <button

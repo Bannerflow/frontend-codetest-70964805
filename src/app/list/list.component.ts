@@ -6,11 +6,12 @@ import { RouterModule } from '@angular/router';
 import { PokemonListItem } from '../types/pokemon.list.item';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule, MatButtonModule],
+  imports: [CommonModule, RouterModule, HttpClientModule, MatButtonModule, MatProgressSpinnerModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
