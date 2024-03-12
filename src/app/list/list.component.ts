@@ -19,6 +19,7 @@ export class ListComponent implements OnInit {
   previousPage: string | undefined | null;
   nextPage: string | undefined | null;
   pokemon: List;
+  loading: boolean = false;
 
   constructor(private apiService: ApiService) {}
 
@@ -51,10 +52,12 @@ export class ListComponent implements OnInit {
   }
 
   getPage(url: string): void {
+    this.loading = true;
     this.apiService.getData(url).subscribe((pokemon) => {
       this.getPokemonListFromData(pokemon.results);
       this.previousPage = pokemon.previous;
       this.nextPage = pokemon.next;
+      this.loading = false;
     });
   }
 }

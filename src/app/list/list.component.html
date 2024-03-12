@@ -7,10 +7,10 @@
   </li>
 </ul>
 <p class="buttons__flex">
-  <button mat-flat-button color="primary" type="button" *ngIf="previousPage" (click)="getPage(previousPage)">
+  <button mat-flat-button color="primary" [disabled]="loading" type="button" *ngIf="previousPage" (click)="getPage(previousPage)">
     Previous
   </button>
-  <button mat-flat-button color="primary" type="button" *ngIf="nextPage" (click)="getPage(nextPage)" class="button__next">
+  <button mat-flat-button color="primary" [disabled]="loading" type="button" *ngIf="nextPage" (click)="getPage(nextPage)" class="button__next">
     Next
   </button>
 </p>
