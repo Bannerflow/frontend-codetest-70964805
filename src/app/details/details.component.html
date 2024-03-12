@@ -1,7 +1,13 @@
 <div class="details__mainWrapper">
   <div class="details__main">
     <h2>{{ pokemon?.name | titlecase }}</h2>
-    <p><img src="{{ pokemon?.sprites?.front_default }}" class="details__img"/></p>
+    <p>
+      <img src="{{ pokemon?.sprites?.front_default }}" class="details__img" />
+    </p>
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg"
+      class="pokemon__logo"
+    />
   </div>
   <a
     class="button__back"
